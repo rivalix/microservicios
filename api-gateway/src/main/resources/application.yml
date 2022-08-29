@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes[0].id: user-microservice
+      routes[0].uri: lb://USER-MICROSERVICE
+      routes[0].predicates[0]: Path=/user-service/**
+       
+      routes[1].id: task-microservice
+      routes[1].uri: lb://TASK-MICROSERVICE
+      routes[1].predicates[0]: Path=/task-service/**
+
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}-${random.uuid}
+
+  
+
